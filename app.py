@@ -11,6 +11,7 @@ Run with:  streamlit run app.py
 import csv
 import os
 from datetime import datetime
+from dotenv import load_dotenv
 
 import streamlit as st
 
@@ -21,6 +22,7 @@ from llm_client import build_prompt, call_gemini
 
 FEEDBACK_FILE = "feedback.csv"
 
+load_dotenv()
 
 def _log_feedback(verdict: str) -> None:
     file_exists = os.path.exists(FEEDBACK_FILE)

@@ -11,11 +11,9 @@ The older `google-generativeai` package is deprecated — don't use it.
 
 import json
 import os
-from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-load_dotenv()
 
 RESPONSE_SCHEMA = {
     "type": "object",
