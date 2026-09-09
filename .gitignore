@@ -1,0 +1,21 @@
+# Environment variables / secrets
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# Uploaded test files (optional, if you don't want to commit test PDFs)
+*.pdf
+temp.pdf
+
+# VS Code settings (optional, personal preference)
+.vscode/
