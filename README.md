@@ -65,7 +65,5 @@ deployment_assistant/
 
 ## Notes
 
-- Uses the current `google-genai` SDK. The older
-  `google-generativeai` package is deprecated — don't install it.
 - If the Gemini call fails (bad key, rate limit, network), the UI
   shows a clear error instead of crashing.
