@@ -59,7 +59,7 @@ def call_gemini(prompt: str, api_key: str, model_name: str = "gemini-3.8-flash")
     "error" key instead of raising, so the UI can degrade gracefully.
     """
     try:
-        client = genai.Client(api_key= os.getenv("GOOGLE_API_KEY"))
+        client = genai.Client(api_key= api_key)
         response = client.models.generate_content(
             model=model_name,
             contents=prompt,
