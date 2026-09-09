@@ -1,13 +1,3 @@
-"""
-Step 4: LLM reasoning
-Step 5: Structured output
-----------------------------
-Builds the prompt (log + KB grounding), calls Gemini with a forced
-JSON response schema, and parses the result into a plain dict.
-
-Uses the current `google-genai` SDK (`pip install google-genai`).
-The older `google-generativeai` package is deprecated — don't use it.
-"""
 
 import json
 import os

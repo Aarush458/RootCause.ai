@@ -1,10 +1,4 @@
-"""
-Step 2: Preprocessing
-----------------------
-Deterministic, no AI involved. Pulls structured signals out of raw
-log text so the LLM prompt in step 4 has clean, high-signal input
-instead of a huge noisy blob.
-"""
+
 
 import re
 

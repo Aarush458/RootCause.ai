@@ -1,11 +1,4 @@
-"""
-Step 3: Pattern match + knowledge base
-----------------------------------------
-A lightweight dict lookup — not a vector DB, no embeddings needed for
-a 2-hour build. If the log text matches a known signature, we hand
-that grounding context to the LLM in step 4 so it doesn't have to
-guess the root cause from scratch.
-"""
+
 
 KB_PATTERNS = [
     {

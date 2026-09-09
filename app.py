@@ -33,11 +33,10 @@ def _log_feedback(verdict: str) -> None:
         writer.writerow([datetime.now().isoformat(), verdict])
 
 
-st.set_page_config(page_title="Deployment Troubleshooting Assistant", layout="centered")
+st.set_page_config(page_title="RootCause.ai: Deployment Troubleshooting Assistant", layout="centered")
 st.title("RootCause.ai")
 st.caption("Paste a deployment log or pick a sample. The assistant analyzes it and suggests fixes.")
 
-# --- Step 1: Input ---
 api_key = st.sidebar.text_input(
     "Gemini API key", value=os.environ.get("GEMINI_API_KEY", ""), type="password"
 )
@@ -56,18 +55,16 @@ analyze_clicked = st.button("Analyze", type="primary", disabled=not log_text or 
 if not api_key:
     st.info("Enter your Gemini API key in the sidebar to run analysis.")
 
-# --- Steps 2-5: run pipeline ---
 if analyze_clicked and log_text and api_key:
     with st.spinner("Parsing log and consulting the model..."):
-        signals = parse_log(log_text)                       # Step 2
-        kb_hit = match_kb(log_text)                          # Step 3
-        prompt = build_prompt(signals["cleaned_text"], signals, kb_hit)  # Step 4 (prep)
-        result = call_gemini(prompt, api_key)                # Step 4 (call) + Step 5 (parsed JSON)
+        signals = parse_log(log_text)                  
+        kb_hit = match_kb(log_text)                          
+        prompt = build_prompt(signals["cleaned_text"], signals, kb_hit)  
+        result = call_gemini(prompt, api_key)               
 
     st.session_state["last_result"] = result
     st.session_state["last_log_name"] = source
 
-# --- Display result ---
 result = st.session_state.get("last_result")
 if result:
     st.divider()
@@ -92,7 +89,6 @@ if result:
                 for line in related:
                     st.code(line, language="text")
 
-        # --- Feedback loop ---
         st.divider()
         st.write("Was this useful?")
         col1, col2 = st.columns(2)
