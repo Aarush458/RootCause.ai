@@ -1,9 +1,4 @@
-"""
-Step 1: Log/error input
-------------------------
-A handful of synthetic deployment logs so the demo doesn't depend on
-finding real logs on the spot. Feel free to add more before your demo.
-"""
+
 
 SAMPLE_LOGS = {
     "Kubernetes CrashLoopBackOff": """
