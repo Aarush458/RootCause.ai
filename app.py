@@ -34,7 +34,7 @@ def _log_feedback(verdict: str) -> None:
 
 
 st.set_page_config(page_title="Deployment Troubleshooting Assistant", layout="centered")
-st.title("Deployment issue troubleshooting assistant")
+st.title("RootCause.ai")
 st.caption("Paste a deployment log or pick a sample. The assistant analyzes it and suggests fixes.")
 
 # --- Step 1: Input ---
