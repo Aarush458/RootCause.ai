@@ -50,7 +50,7 @@ Respond with a concise, human-readable root cause analysis and 2-4 ranked,
 actionable next steps an engineer can take right now."""
 
 
-def call_gemini(prompt: str, api_key: str, model_name: str = "gemini-3.8-flash") -> dict:
+def call_gemini(prompt: str, api_key: str, model_name: str = "gemini-3.6-flash") -> dict:
     """Call Gemini with forced JSON output. Returns a parsed dict.
 
     On failure (rate limit, network, bad parse) returns a dict with an
@@ -64,8 +64,9 @@ def call_gemini(prompt: str, api_key: str, model_name: str = "gemini-3.8-flash")
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=RESPONSE_SCHEMA,
-                max_output_tokens=500,
+                max_output_tokens=1200,
                 temperature=0.2,
+                thinking_config=types.ThinkingConfig(thinking_level="low"),
             ),
         )
         return json.loads(response.text)
