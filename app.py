@@ -64,6 +64,7 @@ if analyze_clicked and log_text and api_key:
 
     st.session_state["last_result"] = result
     st.session_state["last_log_name"] = source
+    st.session_state["last_log_text"] = log_text
 
 result = st.session_state.get("last_result")
 if result:
@@ -88,6 +89,17 @@ if result:
             with st.expander("Related log lines"):
                 for line in related:
                     st.code(line, language="text")
+         # --- Regenerate ---
+        st.divider()
+        if st.button("🔄 Not satisfied? Regenerate response"):
+            stored_log = st.session_state.get("last_log_text", "")
+            with st.spinner("Regenerating..."):
+                signals = parse_log(stored_log)
+                kb_hit = match_kb(stored_log)
+                prompt = build_prompt(signals["cleaned_text"], signals, kb_hit)
+                new_result = call_gemini(prompt, api_key)
+            st.session_state["last_result"] = new_result
+            st.rerun()
 
         st.divider()
         st.write("Was this useful?")
