@@ -12,7 +12,8 @@ import csv
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-
+import pytesseract
+from PIL import Image
 import streamlit as st
 
 from sample_logs import SAMPLE_LOGS
@@ -38,23 +39,30 @@ st.title("RootCause.ai")
 st.caption("Paste a deployment log or pick a sample. The assistant analyzes it and suggests fixes.")
 
 api_key = st.sidebar.text_input(
-    "Gemini API key", value=os.environ.get("GEMINI_API_KEY", ""), type="password"
+    "Gemini API keyThanks for the hackathon project we were building. I'm going to share with you a file of app.py, and there's an error that's appearing. I want you to correct it. Simple error. ", value=os.environ.get("GEMINI_API_KEY", ""), type="password"
 )
 
-source = st.radio("Input method", ["Pick a sample log", "Paste my own log"], horizontal=True)
-
+source = st.radio("Input method", ["Pick a sample log", "Paste my own log", "Upload a log screenshot"], horizontal=True)
 if source == "Pick a sample log":
     sample_name = st.selectbox("Sample log", list(SAMPLE_LOGS.keys()))
     log_text = SAMPLE_LOGS[sample_name]
     st.code(log_text.strip(), language="text")
-else:
+elif source == "Paste my own log":
     log_text = st.text_area("Paste log/error text here", height=220)
-
-analyze_clicked = st.button("Analyze", type="primary", disabled=not log_text or not api_key)
+else:
+    uploaded_image = st.file_uploader("Upload a log screenshot", type=["png", "jpg", "jpeg"])
+    log_text = ""
+    if uploaded_image is not None:
+        image = Image.open(uploaded_image)
+        st.image(image, caption="Uploaded screenshot", use_container_width=True)
+        with st.spinner("Extracting text via OCR..."):
+            log_text = pytesseract.image_to_string(image)
+        st.text_area("Extracted text (edit if OCR made mistakes)", value=log_text, height=220, key="ocr_output")
+        log_text = st.session_state.get("ocr_output", log_text)
 
 if not api_key:
     st.info("Enter your Gemini API key in the sidebar to run analysis.")
-
+analyze_clicked = st.button("🔍 Analyze")
 if analyze_clicked and log_text and api_key:
     with st.spinner("Parsing log and consulting the model..."):
         signals = parse_log(log_text)                  
