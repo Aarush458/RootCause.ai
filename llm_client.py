@@ -11,9 +11,11 @@ The older `google-generativeai` package is deprecated — don't use it.
 
 import json
 import os
-
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+
+load_dotenv()
 
 RESPONSE_SCHEMA = {
     "type": "object",
@@ -50,14 +52,14 @@ Respond with a concise, human-readable root cause analysis and 2-4 ranked,
 actionable next steps an engineer can take right now."""
 
 
-def call_gemini(prompt: str, api_key: str, model_name: str = "gemini-2.5-flash") -> dict:
+def call_gemini(prompt: str, api_key: str, model_name: str = "gemini-3.8-flash") -> dict:
     """Call Gemini with forced JSON output. Returns a parsed dict.
 
     On failure (rate limit, network, bad parse) returns a dict with an
     "error" key instead of raising, so the UI can degrade gracefully.
     """
     try:
-        client = genai.Client(api_key=api_key)
+        client = genai.Client(api_key= os.getenv("GOOGLE_API_KEY"))
         response = client.models.generate_content(
             model=model_name,
             contents=prompt,
