@@ -1,4 +1,4 @@
-# Deployment issue troubleshooting assistant
+# RootCause.ai: Deployment issue troubleshooting assistant
 
 A single-agent GenAI tool that takes a deployment log/error and returns a
 human-readable root cause summary plus ranked, actionable next steps.
