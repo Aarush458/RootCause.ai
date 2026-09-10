@@ -34,13 +34,12 @@ deployment_assistant/
    pre-filled).
 
 ## IMPORTANT 
-Installing Tesseract OCR (not in requirements.txt)
+Installing Tesseract OCR
 
 Depending on your operating system, follow the instructions below to install the Tesseract OCR engine:
 
 ### macOS
-If you're on macOS, you can install the Tesseract package directly using Homebrew. Simply open your terminal and run:
-`brew install tesseract`
+If you're on macOS, you can install the Tesseract package directly via requirements.txt
 
 ### Windows
 If you are on Windows, you will need to install the software manually and configure your system path. Follow these steps:
