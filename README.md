@@ -33,8 +33,37 @@ deployment_assistant/
    environment variable `GEMINI_API_KEY` before launching so it's
    pre-filled).
 
-## Input format
+## IMPORTANT 
+Installing Tesseract OCR (not in requirements.txt)
 
+Depending on your operating system, follow the instructions below to install the Tesseract OCR engine:
+
+### macOS
+If you're on macOS, you can install the Tesseract package directly using Homebrew. Simply open your terminal and run:
+`brew install tesseract`
+
+### Windows
+If you are on Windows, you will need to install the software manually and configure your system path. Follow these steps:
+1. **Download the installer:** Get the latest `.exe` installer from the [UB Mannheim Tesseract wiki](https://github.com/UB-Mannheim/tesseract/wiki).
+2. **Run the setup:** Execute the downloaded file and follow the on-screen prompts. Note your installation directory (by default, it is usually `C:\Program Files\Tesseract-OCR`).
+3. **Add to PATH:** To ensure Tesseract works properly in your command line or scripts, you must add its folder to your environment variables:
+   - Open the Windows start menu, search for **Environment Variables**, and select **Edit the system environment variables**.
+   - Click the **Environment Variables...** button at the bottom.
+   - In the **System variables** section, find and select the `Path` variable, then click **Edit**.
+   - Click **New** and paste the path to your Tesseract installation folder (e.g., `C:\Program Files\Tesseract-OCR`).
+   - Click **OK** on all the windows to apply the changes. 
+
+*(Alternatively, you can install it via the command line using Windows Package Manager by running `winget install --id UB-Mannheim.TesseractOCR`.)*
+
+### Other Operating Systems (Linux)
+For Linux distributions, Tesseract is available natively and can be installed via your default package manager. 
+* **Ubuntu:** 
+  `sudo apt update`
+  `sudo apt install tesseract-ocr`
+   
+
+## Input format
+- Screenshots of error logs
 - Plain text deployment/application logs (Kubernetes events, stack
   traces, container logs, CI/CD output).
 - No strict schema required — the preprocessing step strips ISO
@@ -54,7 +83,7 @@ deployment_assistant/
    one, that known cause/fix is injected into the prompt as grounding
    context (a lightweight, non-vector form of retrieval-augmented
    generation).
-3. **LLM reasoning (Gemini 2.5 Flash)** — the model receives the
+3. **LLM reasoning (Gemini 3.6 Flash)** — the model receives the
    cleaned log, extracted signals, and any KB match, and is forced
    (via `response_schema`) to return strict JSON: issue summary, root
    cause, confidence level, and ranked next steps. Structured output
@@ -67,3 +96,5 @@ deployment_assistant/
 
 - If the Gemini call fails (bad key, rate limit, network), the UI
   shows a clear error instead of crashing.
+
+
